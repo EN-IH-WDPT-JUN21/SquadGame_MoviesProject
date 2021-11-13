@@ -38,7 +38,7 @@ public class PlaylistController {
         return playlistService.createPlaylist(playlistDto);
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     private PlaylistDto changeTitle(@RequestBody TitleDto titleDto, @PathVariable Long id){
         return playlistService.updatePlaylist(titleDto, id);

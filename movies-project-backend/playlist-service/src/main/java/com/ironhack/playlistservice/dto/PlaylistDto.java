@@ -6,14 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlaylistDto {
     private Long playlistId;
+
+    @NotNull
+    private Long userId;
 
     @NotNull
     private String title;

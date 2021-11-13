@@ -10,23 +10,31 @@ import { Injectable } from '@angular/core';
 
 export class PlaylistService {
 
-  private readonly baseUrl = 'TODO';  // url for playlist API to add
+  private readonly baseUrl = 'localhost:8888/playlists';  // url for playlist API to review
 
   constructor(private http:HttpClient) { }
 
-  createPlaylist(playlist: Object): Observable<Object> {  //parameters and URL to review
-    return this.http.post(`${this.baseUrl}`, playlist);
+  getAllPlaylists(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
   }
 
-  getPlaylist(id: number): Observable<Playlist> {   //parameters and URL to review
+  getPlaylistByUserId(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/user/${userId}`);
+  }
+
+  getPlaylistById(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  addToPlaylist(playlistId: number, movie: Movie): Observable<Playlist> {   //parameters and URL to review
-    return this.http.post(`${this.baseUrl}/${playlistId}`, movie);
+  createPlaylist(playlist: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, playlist);
   }
 
-  deleteFromPlaylist(playlistId: number, movieId: number): Observable<any> {    //parameters and URL to review
-    return this.http.delete(`${this.baseUrl}/${playlistId}/${movieId}`, {responseType: 'text'});
+  changeTitle(playlist: Playlist, id:number): Observable<Object> {
+    return this.http.patch(`${this.baseUrl}/${id}`, playlist);
+  }
+
+  deletePlaylist(playlistId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${playlistId}`, {responseType: 'text'});
   }
 }

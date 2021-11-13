@@ -1,3 +1,6 @@
 export interface Playlist {
-    // parameters to add
+    playlistId: number,
+    userId: number,
+    title: string,
+    isFull: boolean
 }

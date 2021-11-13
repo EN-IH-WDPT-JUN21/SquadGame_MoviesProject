@@ -2,7 +2,6 @@ package com.ironhack.playlistservice.service;
 
 import com.ironhack.playlistservice.converter.PlaylistConverter;
 import com.ironhack.playlistservice.dao.Playlist;
-import com.ironhack.playlistservice.dao.PlaylistItem;
 import com.ironhack.playlistservice.dto.PlaylistDto;
 import com.ironhack.playlistservice.dto.TitleDto;
 import com.ironhack.playlistservice.repository.PlaylistRepository;
@@ -43,7 +42,7 @@ public class PlaylistService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Playlist not found for this id : " + id));
         if (titleDto != null) {
                 try {
-                    playlist.setTitle(titleDto.toString());
+                    playlist.setTitle(titleDto.getTitle());
                 } catch (Exception e) {
                     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title can not be blank");
                 }
@@ -53,11 +52,10 @@ public class PlaylistService {
     }
 
     public void deletePlaylist(Long id) {
-        Playlist playlist = playlistRepository.findById(id)
+        playlistRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Playlist not found for this id : " + id));
         playlistRepository.deleteById(id);
     }
-
 
     public List<PlaylistDto> getPlaylistsByUserId(Long id) {
         return playlistConverter.entityToDto(playlistRepository.findByUserId(id));

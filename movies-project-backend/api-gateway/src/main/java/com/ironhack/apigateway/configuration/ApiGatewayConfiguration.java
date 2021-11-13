@@ -14,10 +14,13 @@ public class ApiGatewayConfiguration {
     @Bean
     public RouteLocator gatewayRouter(RouteLocatorBuilder builder) {
         return builder.routes()
-                //GET Playlist for user
+                //GET, DELETE, PATCH Playlist by ID
                 .route(p -> p.path("/playlists/**")
                         .uri("lb://"+PLAYLIST_SERVICE_NAME))
-                //GET ALL Playlist
+                //GET Playlists by user
+                .route(p -> p.path("/user/**")
+                        .uri("lb://"+PLAYLIST_SERVICE_NAME))
+                //GET, POST Playlist (get all)
                 .route(p -> p.path("/playlists")
                         .uri("lb://"+PLAYLIST_SERVICE_NAME))
                 //GET Playlist found by ID
@@ -26,15 +29,15 @@ public class ApiGatewayConfiguration {
                 //POST Playlist
                 .route(p -> p.path("/playlists")
                         .uri("lb://"+PLAYLIST_SERVICE_NAME))
-                //GET User
-                .route(p -> p.path("/users/**")
-                        .uri("lb://"+AUTH_SERVICE_NAME))
-                //POST User
-                .route(p -> p.path("/users")
-                        .uri("lb://"+AUTH_SERVICE_NAME))
-                //POST Authenticate user
-                .route(p -> p.path("/authenticate")
-                        .uri("lb://"+AUTH_SERVICE_NAME))
+                //GET, POST playlist item (get all)
+                .route(p -> p.path("/playlist-item")
+                        .uri("lb://"+PLAYLIST_SERVICE_NAME))
+                //GET, DELETE playlist item by ID
+                .route(p -> p.path("/playlist-item/**")
+                        .uri("lb://"+PLAYLIST_SERVICE_NAME))
+                //GET playlist items by playlist name
+                .route(p -> p.path("/playlist-title/**")
+                        .uri("lb://"+PLAYLIST_SERVICE_NAME))
                 .build();
     }
 }

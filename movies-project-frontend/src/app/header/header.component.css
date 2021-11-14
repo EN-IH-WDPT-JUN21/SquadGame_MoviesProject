@@ -1,0 +1,21 @@
+nav {
+    width: 100%;
+}
+
+.menu {
+    padding: 20px;
+    background-color: rgb(5, 108, 149);
+}
+
+.menu li {
+    display: inline;
+}
+
+.menu-item {
+    font-size: 1.7em;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+}

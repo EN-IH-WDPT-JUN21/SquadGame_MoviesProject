@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/movies-project-backend/api-gateway/api-gateway.iml" filepath="$PROJECT_DIR$/movies-project-backend/api-gateway/api-gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/movies-project-backend/discovery-service/discovery-service.iml" filepath="$PROJECT_DIR$/movies-project-backend/discovery-service/discovery-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/movies-project-backend/playlist-service/playlist-service.iml" filepath="$PROJECT_DIR$/movies-project-backend/playlist-service/playlist-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/movies-project-backend/user-service/user-service.iml" filepath="$PROJECT_DIR$/movies-project-backend/user-service/user-service.iml" />
     </modules>
   </component>
 </project>

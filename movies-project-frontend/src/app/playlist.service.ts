@@ -19,7 +19,7 @@ export class PlaylistService {
   }
 
   getPlaylistByUserId(userId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/user/${userId}`);
+    return this.http.get(`${this.baseUrl}/userEntity/${userId}`);
   }
 
   getPlaylistById(id: number): Observable<any> {

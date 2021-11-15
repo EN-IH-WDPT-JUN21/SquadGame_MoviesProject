@@ -1,15 +1,14 @@
-package com.ironhack.apigateway.configuration;
+package com.ironhack.movieproject.userservice.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class PasswordConfiguration {
+public class PasswordEncoderConfiguration {
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
 }

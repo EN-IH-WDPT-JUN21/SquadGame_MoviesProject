@@ -24,7 +24,7 @@ public class PlaylistController {
 
     @GetMapping("/user/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private List<PlaylistDto> getPlaylistsByUserId(@PathVariable Long id){return playlistService.getPlaylistsByUserId(id);}
+    private List<PlaylistDto> getPlaylistsByUserId(@PathVariable Long id, @RequestHeader (name="Authorization") String token){return playlistService.getPlaylistsByUserId(id,token);}
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

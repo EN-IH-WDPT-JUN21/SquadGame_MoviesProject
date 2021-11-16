@@ -6,6 +6,7 @@ import com.ironhack.playlistservice.dao.PlaylistItem;
 import com.ironhack.playlistservice.dto.PlaylistItemDto;
 import com.ironhack.playlistservice.repository.PlaylistItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,6 +15,9 @@ import java.util.List;
 
 @Service
 public class PlaylistItemService {
+
+    @Autowired
+    Environment environment;
 
     @Autowired
     private PlaylistItemRepository playlistItemRepository;

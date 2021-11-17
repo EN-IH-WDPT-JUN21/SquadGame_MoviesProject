@@ -73,18 +73,18 @@ public class PlaylistService {
 
     public PlaylistDto createPlaylist(PlaylistDto playlistDto, String token) {
         token = token.replace("Bearer","");
-        try {
-            Long tokenSubject = Long.parseLong(Jwts.parser()
-                    .setSigningKey(environment.getProperty("token.secret"))
-                    .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject());
-        } catch (Exception e) {
+        Long tokenSubject = Long.parseLong(Jwts.parser()
+                .setSigningKey(environment.getProperty("token.secret"))
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject());
+        if (!tokenSubject.equals(playlistDto.getUserId())){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"You don't have access to this resource!");
+        }else {
+            Playlist playlist = playlistConverter.dtoToEntity(playlistDto);
+            playlistRepository.save(playlist);
+            return playlistConverter.entityToDto(playlist);
         }
-        Playlist playlist = playlistConverter.dtoToEntity(playlistDto);
-        playlistRepository.save(playlist);
-        return playlistConverter.entityToDto(playlist);
     }
 
     public PlaylistDto updatePlaylist(TitleDto titleDto, Long id, String token) {

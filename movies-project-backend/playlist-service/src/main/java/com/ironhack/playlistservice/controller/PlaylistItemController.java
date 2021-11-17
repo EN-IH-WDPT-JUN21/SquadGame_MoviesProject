@@ -23,27 +23,31 @@ public class PlaylistItemController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private PlaylistItemDto getPlaylistItemById(@PathVariable Long id) {
-        return playlistItemService.getPlaylistItemById(id);
+    private PlaylistItemDto getPlaylistItemById(@PathVariable Long id, @RequestHeader (name="Authorization") String token) {
+        return playlistItemService.getPlaylistItemById(id, token);
     }
 
-    @GetMapping("/playlist-title/{playlistTitle}")
+    @GetMapping("/playlist-title/{playlistTitle}/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    private List<PlaylistItemDto> getPlaylistItemsByPlaylistTitle(@PathVariable String playlistTitle) {
-        return playlistItemService.getPlaylistItemsByPlaylistTitle(playlistTitle);
+    private List<PlaylistItemDto> getPlaylistItemsByPlaylistTitleAndUserId(@PathVariable Long userId, @PathVariable String playlistTitle, @RequestHeader (name="Authorization") String token) {
+        return playlistItemService.getPlaylistItemsByPlaylistTitleAndUserId(userId, playlistTitle, token);
     }
-
-    ;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private PlaylistItemDto createPlaylistItem(@RequestBody PlaylistItemDto playlistItemDto) {
-        return playlistItemService.createPlaylistItem(playlistItemDto);
+    private PlaylistItemDto createPlaylistItem(@RequestBody PlaylistItemDto playlistItemDto, @RequestHeader (name="Authorization") String token) {
+        return playlistItemService.createPlaylistItem(playlistItemDto, token);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    private void deletePlaylistItem(@PathVariable Long id) {
-        playlistItemService.deletePlaylistItem(id);
+    private void deletePlaylistItem(@PathVariable Long id,  @RequestHeader (name="Authorization") String token) {
+        playlistItemService.deletePlaylistItem(id, token);
+    }
+
+    @DeleteMapping("/{userId}/{playlistTitle}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    private void deleteAllPlaylistItem(@PathVariable Long userId, @PathVariable String playlistTitle,  @RequestHeader (name="Authorization") String token) {
+        playlistItemService.deleteAllPlaylistItem(userId, playlistTitle, token);
     }
 }

@@ -21,13 +21,19 @@ public class PlaylistItem{
 
     @Column(name = "movie_id")
     private String movieId;
+    private String title;
+    private String description;
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "playlist_id", nullable = false)
     private Playlist playlist;
 
-    public PlaylistItem(String movieId) {
+    public PlaylistItem(String movieId, String title, String description, String imageUrl) {
         this.movieId = movieId;
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public PlaylistItem(String movieId, Playlist playlist) {

@@ -1,0 +1,29 @@
+<!-- Container -->
+<div id="form-container">
+
+    <!-- Title-->
+    <h1>LOGIN</h1>
+
+    <!-- Form -->
+    <form [formGroup]="registerForm"(ngSubmit)="onSubmit()" >
+
+        <!-- User Input Group -->
+        <div class="form-group">
+            <!--input--><input type="text" class="form-control" formControlName="username" placeholder="Username *">
+            <!--user-icon--><fa-icon [icon]="faUser" class="prepend-icon icon"></fa-icon>
+            <!--error-message--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)">Please enter your username.</p>
+        </div>
+           
+        <!-- Password Input Group -->
+        <div class="form-group">
+            <!--input--><input class="form-control" formControlName="password" placeholder="Password *" [type]="fieldTextType ? 'text' : 'password'">    
+            <!--lock-icon--><fa-icon [icon]="faLock" class="prepend-icon icon"></fa-icon>
+            <!--eye-icon--><fa-icon [icon]="faPasswordIcon" class="append-icon icon" (click)="toggleFieldTextType()"></fa-icon>
+            <!--error-message--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">Please enter your password.</p>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">SUBMIT</button>
+
+    </form>
+</div>

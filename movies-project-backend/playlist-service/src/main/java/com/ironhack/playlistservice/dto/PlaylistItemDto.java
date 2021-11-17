@@ -13,6 +13,6 @@ import lombok.Setter;
 public class PlaylistItemDto {
     private Long itemId;
 
-    private Long movieId;
+    private String movieId;
     private Playlist playlist;
 }

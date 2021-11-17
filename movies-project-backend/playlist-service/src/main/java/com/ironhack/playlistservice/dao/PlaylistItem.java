@@ -20,17 +20,17 @@ public class PlaylistItem{
     private Long itemId;
 
     @Column(name = "movie_id")
-    private Long movieId;
+    private String movieId;
 
     @ManyToOne
     @JoinColumn(name = "playlist_id", nullable = false)
     private Playlist playlist;
 
-    public PlaylistItem(Long movieId) {
+    public PlaylistItem(String movieId) {
         this.movieId = movieId;
     }
 
-    public PlaylistItem(Long movieId, Playlist playlist) {
+    public PlaylistItem(String movieId, Playlist playlist) {
         this.movieId = movieId;
         this.playlist = playlist;
     }

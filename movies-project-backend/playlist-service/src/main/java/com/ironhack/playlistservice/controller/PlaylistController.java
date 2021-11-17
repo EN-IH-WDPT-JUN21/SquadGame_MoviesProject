@@ -18,8 +18,8 @@ public class PlaylistController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    private List<PlaylistDto> getAllPlaylists(){
-        return playlistService.getAllPlaylists();
+    private List<PlaylistDto> getAllPlaylists( @RequestHeader (name="Authorization") String token){
+        return playlistService.getAllPlaylists(token);
     }
 
     @GetMapping("/user/{id}")
@@ -28,25 +28,25 @@ public class PlaylistController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private PlaylistDto getPlaylistById(@PathVariable Long id){
-        return playlistService.getPlaylistById(id);
+    private PlaylistDto getPlaylistById(@PathVariable Long id, @RequestHeader (name="Authorization") String token){
+        return playlistService.getPlaylistById(id, token);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private PlaylistDto createPlaylist(@RequestBody PlaylistDto playlistDto){
-        return playlistService.createPlaylist(playlistDto);
+    private PlaylistDto createPlaylist(@RequestBody PlaylistDto playlistDto, @RequestHeader (name="Authorization") String token){
+        return playlistService.createPlaylist(playlistDto, token);
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    private PlaylistDto changeTitle(@RequestBody TitleDto titleDto, @PathVariable Long id){
-        return playlistService.updatePlaylist(titleDto, id);
+    private PlaylistDto changeTitle(@RequestBody TitleDto titleDto, @PathVariable Long id, @RequestHeader (name="Authorization") String token){
+        return playlistService.updatePlaylist(titleDto, id, token);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    private void deletePlaylist(@PathVariable Long id){
-        playlistService.deletePlaylist(id);
+    private void deletePlaylist(@PathVariable Long id, @RequestHeader (name="Authorization") String token){
+        playlistService.deletePlaylist(id, token);
     }
 }

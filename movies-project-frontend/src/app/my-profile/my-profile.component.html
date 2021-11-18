@@ -1,1 +1,62 @@
-<p>my-profile works!</p>
+<!-- General Container -->
+<div id="info-container">
+
+    <!-- Image Container -->
+    <div class="img-container">
+        
+       <!-- Profile Image --> <img src="https://image-service.unbounce.com/https%3A%2F%2Fapp.unbounce.com%2Fpublish%2Fassets%2F862ddcce-a7dc-4cde-896e-48021505ecda%2F8941c3f1-profile-user_1000000000000000000028.png?png8=true"
+            class="img-fluid rounded-circle border border-3 mx-auto d-block">
+        <!-- Edit Image Button --><button class="btn-primary" id="edit-photo-icon" ><fa-icon [icon]="faPencilAlt"></fa-icon></button>
+
+    </div>
+
+
+    <!-- Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <!-- Username Input Group -->
+        <div class="form-group">
+            <!--label--><label for="username">Username: </label>
+            <div class="input-container">
+                <!--input--><input type="text" class="form-control" formControlName="username" placeholder="ironh4ck3r">
+                <!--icon--><fa-icon [icon]="faUser" class="prepend-icon icon"></fa-icon>
+            </div>
+        </div>
+
+        <!-- Name Input Group -->
+        <div class="form-group">
+            <!--label--><label for="name">Name: </label>
+            <div class="input-container">
+                <!--input--><input class="form-control" formControlName="name" placeholder="John Titor">
+                <!--icon--><fa-icon [icon]="faUserTag" class="prepend-icon icon"></fa-icon>
+            </div>
+        </div>
+
+        <!-- Email Input Group -->
+        <div class="form-group">
+            <!--label--><label for="email">Email: </label>
+            <div class="input-container">
+                <!--input--><input type="text" class="form-control" formControlName="email" placeholder="ironh4ck3r@mail.com">
+                <!--icon--><fa-icon [icon]="faEnvelope" class="prepend-icon icon"></fa-icon>
+            </div>
+            <!--error-message--><p class="alert-warning alert-danger fade show error-msg"
+                *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty ||
+                    registerForm.controls['email'].touched)">Please enter your email.</p>            
+        </div>
+
+            <!-- Bio Input Group-->
+            <div class="form-group">
+                <!--label--><label for="bio">Bio: </label>
+                <div class="input-container">
+                    <!--input--><textarea class="form-control" formControlName="bio" placeholder="Add your bio here..."></textarea>
+                    <!--icon--> <fa-icon [icon]="faFileAlt" class="prepend-icon icon" id="icon-bio"></fa-icon>
+                </div>
+            </div>
+
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">UPDATE</button>
+        
+    </form>
+
+</div>

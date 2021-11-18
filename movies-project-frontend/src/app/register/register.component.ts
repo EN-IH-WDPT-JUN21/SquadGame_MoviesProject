@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { faLock, faUser, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faUser, faEyeSlash, faEye, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
    faPasswordIcon2 = faEyeSlash;
    faLock = faLock;
    faUser = faUser;
+   faEnvelope = faEnvelope;
    fieldTextType: boolean = false;
    fieldTextType2: boolean = false;
  

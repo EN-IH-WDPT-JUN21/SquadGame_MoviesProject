@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { faLock, faUser, faEyeSlash, faEye } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  //Variables
+  faPasswordIcon = faEyeSlash;
+  faLock = faLock;
+  faUser = faUser;
+  fieldTextType: boolean = false;
 
-  ngOnInit(): void {
+  registerForm = this.fb.group({
+    username: ["", Validators.required],
+    password: ["", Validators.required],
+  })
+
+  //Constructor
+  constructor(private fb: FormBuilder, private router: Router) {}
+
+  //ngOnInit
+  ngOnInit(): void {   
   }
 
+  // Handles Password show/hide toggle
+  toggleFieldTextType() {
+
+    //toggles password field type (text/password)
+    this.fieldTextType = !this.fieldTextType;
+
+    //toggles password show/hide icon
+    if (this.fieldTextType){
+      this.faPasswordIcon = faEye;
+    }else {
+      this.faPasswordIcon = faEyeSlash;
+    }
+
+  }
+
+  //onSubmit
+  onSubmit():void{
+    
+    //if login is correct, redirects to My Profile
+    if(true) {
+      this.router.navigate(['/my-profile']);
+    }
+  }
 }

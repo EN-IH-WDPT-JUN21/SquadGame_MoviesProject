@@ -19,5 +19,12 @@ public class PlaylistDto {
     @NotNull
     private String title;
     private boolean isFull;
+
+    public PlaylistDto(Long userId, String title, boolean isFull) {
+        this.userId = userId;
+        this.title = title;
+        this.isFull = isFull;
+    }
+
     //private Set<Long> moviesId;
 }

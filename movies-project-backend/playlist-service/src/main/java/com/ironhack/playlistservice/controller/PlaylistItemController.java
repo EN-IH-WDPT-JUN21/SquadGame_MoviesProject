@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/playlist-item")
+@CrossOrigin("http://localhost:4200")
 public class PlaylistItemController {
 
     @Autowired

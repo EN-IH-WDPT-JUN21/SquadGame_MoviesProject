@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/playlists")
+@CrossOrigin("http://localhost:4200")
 public class PlaylistController {
 
     @Autowired
@@ -35,6 +36,7 @@ public class PlaylistController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private PlaylistDto createPlaylist(@RequestBody PlaylistDto playlistDto, @RequestHeader (name="Authorization") String token){
+        System.out.println("Check body" + playlistDto);
         return playlistService.createPlaylist(playlistDto, token);
     }
 

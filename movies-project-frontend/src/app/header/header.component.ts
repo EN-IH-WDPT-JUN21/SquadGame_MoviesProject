@@ -8,8 +8,8 @@ import {faUser} from '@fortawesome/free-solid-svg-icons';
 })
 export class HeaderComponent implements OnInit {
   navbarOpen = false;
-
   faUser = faUser;
+
 
   constructor() { }
 

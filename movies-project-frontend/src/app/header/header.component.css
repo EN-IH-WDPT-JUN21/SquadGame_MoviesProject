@@ -1,13 +1,19 @@
-nav {
-    width: 100%;
+nav ul li a {
+    color: #fff;
+    font-size: 1.2em;
 }
 
-.menu {
+align-left {
+    float: right;
+    right: 0;
+}
+
+/* .menu {
     padding: 20px;
     background-color: rgb(5, 108, 149);
-}
+} */
 
-.menu li {
+/* .menu li {
     display: inline;
 }
 
@@ -26,4 +32,4 @@ nav {
 
 .active {
     background-color: rgb(74, 146, 175);
-}
+} */

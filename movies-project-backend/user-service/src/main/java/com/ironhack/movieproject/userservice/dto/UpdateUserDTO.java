@@ -9,13 +9,9 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-    private String login;
-    private String password;
-    private String name;
-    private String email;
-    private String imageUrl;
-    private String bio;
-
-
-}
+public class UpdateUserDTO {
+        private String name;
+        private String email;
+        private String imageUrl;
+        private String bio;
+    }

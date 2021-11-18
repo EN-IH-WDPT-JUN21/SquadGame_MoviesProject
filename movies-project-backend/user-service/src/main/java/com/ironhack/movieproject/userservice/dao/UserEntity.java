@@ -23,11 +23,15 @@ public class UserEntity {
     private String password;
     private String name;
     private String email;
+    private String imageUrl;
+    private String bio;
 
-    public UserEntity(String login, String password, String name, String email) {
+    public UserEntity(String login, String password, String name, String email, String imageUrl, String bio) {
         this.login = login;
         this.password = password;
         this.name = name;
         this.email = email;
+        this.imageUrl = imageUrl;
+        this.bio = bio;
     }
 }

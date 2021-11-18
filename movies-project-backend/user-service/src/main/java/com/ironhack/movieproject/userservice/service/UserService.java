@@ -1,6 +1,7 @@
 package com.ironhack.movieproject.userservice.service;
 
 import com.ironhack.movieproject.userservice.dao.UserEntity;
+import com.ironhack.movieproject.userservice.dto.UpdateUserDTO;
 import com.ironhack.movieproject.userservice.dto.UserDTO;
 import com.ironhack.movieproject.userservice.dto.UserDetailsDTO;
 import com.ironhack.movieproject.userservice.repository.UserRepository;
@@ -31,9 +32,9 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDetailsDTO createUser(UserDTO userDTO) {
-        UserEntity userEntity = new UserEntity(userDTO.getLogin(),encoder.encode(userDTO.getPassword()),userDTO.getName(), userDTO.getEmail());
+        UserEntity userEntity = new UserEntity(userDTO.getLogin(),encoder.encode(userDTO.getPassword()),userDTO.getName(), userDTO.getEmail(),userDTO.getImageUrl(),userDTO.getBio());
         UserEntity savedUserEntity = userRepository.save(userEntity);
-        return new UserDetailsDTO(savedUserEntity.getId(), savedUserEntity.getLogin(), savedUserEntity.getName(), savedUserEntity.getEmail());
+        return new UserDetailsDTO(savedUserEntity.getId(), savedUserEntity.getLogin(), savedUserEntity.getName(), savedUserEntity.getEmail(),savedUserEntity.getImageUrl(),savedUserEntity.getBio());
     }
 
     public UserDetailsDTO getUserDetailsByLogin(String login){
@@ -41,7 +42,7 @@ public class UserService implements UserDetailsService {
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to login!");
         }else{
-            return new UserDetailsDTO(user.get().getId(),user.get().getLogin(),user.get().getName(),user.get().getEmail());
+            return new UserDetailsDTO(user.get().getId(),user.get().getLogin(),user.get().getName(),user.get().getEmail(),user.get().getImageUrl(),user.get().getBio());
         }
     }
 
@@ -61,18 +62,49 @@ public class UserService implements UserDetailsService {
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
         }else{
-            token = token.replace("Bearer","");
-            Long tokenSubject = Long.parseLong(Jwts.parser()
-                    .setSigningKey(environment.getProperty("token.secret"))
-                    .parseClaimsJws(token)
-                    .getBody()
-                    .getSubject());
-            if (!tokenSubject.equals(id)){
+
+            if (!userHasAccessToResource(token,id)){
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"You don't have access to this resource!");
             }
             else{
-                return new UserDetailsDTO(user.get().getId(),user.get().getLogin(),user.get().getName(),user.get().getEmail());
+                return new UserDetailsDTO(user.get().getId(),user.get().getLogin(),user.get().getName(),user.get().getEmail(),user.get().getImageUrl(),user.get().getBio());
             }
         }
+    }
+
+    public UserDetailsDTO updateUser(Long id, String token, UpdateUserDTO updateUserDTO) {
+        Optional<UserEntity> user = userRepository.findById(id);
+        if (user.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        }else{
+            if (!userHasAccessToResource(token,id)){
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"You don't have access to this resource!");
+            }else {
+                user.get().setBio(updateUserDTO.getBio());
+                user.get().setName(updateUserDTO.getName());
+                user.get().setImageUrl(updateUserDTO.getImageUrl());
+                user.get().setEmail(updateUserDTO.getEmail());
+
+                UserEntity updatedUser = userRepository.save(user.get());
+                return new UserDetailsDTO(
+                        updatedUser.getId(),
+                        updatedUser.getLogin(),
+                        updatedUser.getName(),
+                        updatedUser.getEmail(),
+                        updatedUser.getImageUrl(),
+                        updatedUser.getBio()
+                );
+            }
+        }
+    }
+
+    private boolean userHasAccessToResource(String token, Long id){
+        token = token.replace("Bearer","");
+        Long tokenSubject = Long.parseLong(Jwts.parser()
+                .setSigningKey(environment.getProperty("token.secret"))
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject());
+        return tokenSubject.equals(id);
     }
 }

@@ -1,6 +1,6 @@
 export class Playlist {
 
-    constructor(private _playlistId: number, private _userId: number, private _title: string, private _isFull: boolean ){}
+    constructor(private _playlistId: number, private _userId: number, private _title: string, private _isFull: boolean){}
 
    public get playlistId(): number {
         return this._playlistId;

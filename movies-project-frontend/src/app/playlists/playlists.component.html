@@ -1,43 +1,71 @@
-<div class="container">    
-    
+<div class="container">
+  <div class="row justify-content-center">
     <div class="input-group">
-        <div class="input-group-text" id="input-button">
-            <i class="bi bi-plus-circle-fill fa-lg" id="add" type="button" title="Add" (click)="createPlaylist()"></i>
-        </div>
-        <div class="form-floating">
-            <input class="form-control" id="floatingTextarea" type="text" placeholder="Introduce new task" [(ngModel)]="title"  (keyup.enter)="createPlaylist()">
-            <label for="floatingTextarea">Introduce playlist name</label>
-        </div>
+      <div class="input-group-text" id="input-button">
+        <i class="bi bi-plus-circle-fill fa-lg" id="add" type="button" title="Add" (click)="createPlaylist()"></i>
+      </div>
+      <div class="form-floating">
+        <input class="form-control" id="floatingTextarea" type="text" placeholder="Introduce new task"
+               [(ngModel)]="title" (keyup.enter)="createPlaylist()">
+        <label for="floatingTextarea">Create new playlist</label>
+      </div>
     </div>
-    <br />
-    
-    <div class="card shadow" >
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <input *ngIf="isEdited==true" class="form-control" type="text" placeholder="Edit the title" [(ngModel)]="title"
+               (keyup.enter)="editPlaylistTitle()">
         <div class="card-header">
-            <h3>Your playlists</h3>
+          <h3>Your playlists</h3>
         </div>
         <div class="card-body">
-            <div id="row" class="row">
-                <label *ngIf="playlists.length == 0" id="default-info">You haven't created any playlists yet </label>
-                <div id="col" class="col-2" *ngFor="let playlist of playlists, index as i">
-                    <div class="card" >
-                        <img class="card-img-top" src="https://picsum.photos/200/300" alt="Card image cap">
-                        <div class="card-body">
-                        <h5 class="card-title">{{playlist.title}}</h5>
-                        </div>
-                 
-                        <div class="card-body">
-                            <button class="btn btn-light" id="delete" title="Delete" (click)="deletePlaylist(i)"><i class="fa fa-trash"></i></button>
-                        </div>
-                    </div>
+          <div id="row" class="row">
+            <label *ngIf="playlists.length == 0" id="default-info">You haven't created any playlists yet </label>
+            <div id="col" class="col-4" *ngFor="let playlist of playlists, index as i">
+              <div class="card" id="card-playlist">
+                <img class="card-img" src="{{this.randomImage()}}" alt="Playlist image" (click)="showDetails(i)">
+                <div class="card-body">
+                  <h5 class="card-title">{{playlist.title}}</h5>
+
+                  <button class="btn btn-success" id="edit" title="Edit" (click)="activeEditInput(i)"><i
+                    class="fa fa-edit"></i></button>
+                  <button class="btn btn-danger" id="delete" title="Delete" (click)="deletePlaylist(i)"><i
+                    class="fa fa-trash"></i></button>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
-
-
-
-
-
+    <div class="col">
+      <div class="card shadow" *ngIf="isClicked==true">
+        <div class="card-header">
+          <h3>Playlist movies</h3>
+        </div>
+        <div class="card-body">
+          <div class="col">
+            <div class="card-body">
+              <div id="row" class="row">
+                <label *ngIf="playlistItems.length == 0" id="default-info">Your playlist is empty</label>
+                <div id="col" class="col-4" *ngFor="let playlistItem of playlistItems, index as i">
+                  <div class="card" id="card-playlist">
+                    <img class="card-img" src="{{playlistItem.imageUrl}}" alt="Movie poster">
+                    <div class="card-body">
+                      <h5 class="card-title">{{playlistItem.title}}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
 

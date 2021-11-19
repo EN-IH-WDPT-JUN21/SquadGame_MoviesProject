@@ -15,7 +15,8 @@ export class PlaylistService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiZXhwIjoxNjM3MzQyNjcwfQ.B6ob4IMs2pwz6PDmvBUBjC6Jcix3dVlTyAKJ6T4sROxAXjSyQQabMgPcnrHWQYPHewbYVaydhBLfa2afqMlIQw'
+      'Access-Control-Allow-Origin': '*',
+      Authorization: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzIiwiZXhwIjoxNjM3NDMzMzE3fQ._UyJc4ouUWEyhBrwsoP0arwq055s3mKdk093lKHAFvvlscUVglrl6IX1CE7pa9y4XLQR0UmFPWaipXgk-DUVzw'
     })
   };
 
@@ -34,17 +35,14 @@ export class PlaylistService {
   }
 
   createPlaylist(playlist: Object): Observable<Object> {
-    const body=JSON.stringify(playlist);
-    console.log("Check payload" , playlist);
-    console.log("Check body" , body);
     return this.http.post(`${this.baseUrl}`, playlist, {'headers': this.httpOptions.headers});
   }
 
-  changeTitle(playlist: Playlist, id:number): Observable<Object> {
-    return this.http.patch(`${this.baseUrl}/${id}`, playlist);
+  changeTitle(title: string, id:number): Observable<Object> {
+    return this.http.patch(`${this.baseUrl}/${id}`, title, {'headers': this.httpOptions.headers});
   }
 
   deletePlaylist(playlistId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${playlistId}`, {responseType: 'text'});
+    return this.http.delete(`${this.baseUrl}/${playlistId}`, {'headers': this.httpOptions.headers});
   }
 }

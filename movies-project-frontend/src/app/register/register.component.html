@@ -35,7 +35,7 @@
             <!--lock-icon--><fa-icon [icon]="faLock" class="prepend-icon icon"></fa-icon>
             <!--eye-icon--><fa-icon [icon]="faPasswordIcon2" class="append-icon icon" (click)="toggleFieldTextType2()"></fa-icon>
             <!--error-required--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['passwordConfirmation'].invalid && (registerForm.controls['passwordConfirmation'].dirty || registerForm.controls['passwordConfirmation'].touched)">Please enter your password confirmation.</p>
-            <!--error-passwords match--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls.passwordConfirmation.errors && !registerForm.controls['passwordConfirmation'].invalid && (registerForm.controls['passwordConfirmation'].dirty || registerForm.controls['passwordConfirmation'].touched)">Passwords do not match.</p>
+            <!-- error-passwords match<p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls.passwordConfirmation.errors && !registerForm.controls['passwordConfirmation'].invalid && !registerForm.controls['password'].invalid && (registerForm.controls['passwordConfirmation'].dirty || registerForm.controls['passwordConfirmation'].touched)">Passwords do not match.</p> -->
         </div>
 
         <!-- Submit Button -->

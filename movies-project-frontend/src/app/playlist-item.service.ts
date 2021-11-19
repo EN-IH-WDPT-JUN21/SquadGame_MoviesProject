@@ -31,10 +31,10 @@ export class PlaylistItemService {
   }
 
   deletePlaylistItem(playlistItemId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${playlistItemId}`, {responseType: 'text'});
+    return this.http.delete(`${this.baseUrl}/${playlistItemId}`, {'headers': this.httpOptions.headers});
   }
 
   deleteAllPlaylistItem(playlistTitle:string, userId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${userId}/${playlistTitle}`, {responseType: 'text'});
+    return this.http.delete(`${this.baseUrl}/${userId}/${playlistTitle}`, {'headers': this.httpOptions.headers});
   }
 }

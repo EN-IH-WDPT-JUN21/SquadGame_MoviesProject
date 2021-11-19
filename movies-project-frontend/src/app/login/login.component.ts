@@ -1,3 +1,6 @@
+import { LoginDetails } from './../models/user-models/login-details.model';
+import { UserDetails } from './../models/user-models/user-details.model';
+import { UsersService } from './../users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,10 +25,10 @@ export class LoginComponent implements OnInit {
   })
 
   //Constructor
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private usersService:UsersService) {}
 
   //ngOnInit
-  ngOnInit(): void {   
+  ngOnInit(): void {
   }
 
   // Handles Password show/hide toggle
@@ -45,10 +48,15 @@ export class LoginComponent implements OnInit {
 
   //onSubmit
   onSubmit():void{
-    
+
     //if login is correct, redirects to My Profile
     if(true) {
+      let loginDetails: LoginDetails = new LoginDetails(
+        this.registerForm.value.username,
+        this.registerForm.value.password
+      )
       this.router.navigate(['/my-profile']);
+      this.usersService.login(loginDetails)
     }
   }
 }

@@ -19,3 +19,11 @@ nav {
     padding: 20px;
     text-decoration: none;
 }
+
+.menu-item-hover {
+    background-color: rgb(74, 146, 175);
+}
+
+.active {
+    background-color: rgb(74, 146, 175);
+}

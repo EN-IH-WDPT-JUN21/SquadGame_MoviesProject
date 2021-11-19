@@ -1,6 +1,5 @@
 package com.ironhack.movieproject.userservice.controller;
 
-import com.ironhack.movieproject.userservice.dto.LoginDTO;
 import com.ironhack.movieproject.userservice.dto.UpdateUserDTO;
 import com.ironhack.movieproject.userservice.dto.UserDTO;
 import com.ironhack.movieproject.userservice.dto.UserDetailsDTO;

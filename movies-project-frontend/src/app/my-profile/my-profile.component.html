@@ -30,6 +30,7 @@
                 <!--input--><input class="form-control" formControlName="name" placeholder="John Titor">
                 <!--icon--><fa-icon [icon]="faUserTag" class="prepend-icon icon"></fa-icon>
             </div>
+            <!--error-notletters--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['name'].errors">Only letters are accepted.</p>
         </div>
 
         <!-- Email Input Group -->

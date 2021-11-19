@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faLock, faUser, faEyeSlash, faEye, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { PasswordsMustMatch } from '../validators/passwords-must-match';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,12 @@ export class RegisterComponent implements OnInit {
      email: ["", [Validators.required, Validators.email]],
      password: ["", Validators.required],
      passwordConfirmation: ["", Validators.required]
-   })
+   }, {validator: PasswordsMustMatch('password', 'passwordConfirmation')});
+  
+
+  
+
+   
 
   //Constructor
   constructor(private fb: FormBuilder, private router: Router) {}

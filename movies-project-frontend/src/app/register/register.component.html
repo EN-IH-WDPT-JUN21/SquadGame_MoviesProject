@@ -11,13 +11,13 @@
         <div class="form-group">
             <!--input--><input type="text" class="form-control" formControlName="username" placeholder="Username *">
             <!--user-icon--><fa-icon [icon]="faUser" class="prepend-icon icon"></fa-icon>
-            <!--error-message--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)">Please enter your username.</p>
+            <!--error-invalid--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['username'].invalid && (registerForm.controls['username'].dirty || registerForm.controls['username'].touched)">Please enter your username.</p>
         </div>
 
         <!-- Email Input Group -->
         <div class="form-group">
             <!--input--><input type="text" class="form-control" formControlName="email" placeholder="Email *">
-            <!--email-icon--><fa-icon [icon]="faUser" class="prepend-icon icon"></fa-icon>
+            <!--email-icon--><fa-icon [icon]="faEnvelope" class="prepend-icon icon"></fa-icon>
             <!--error-message--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">Please enter your email.</p>
         </div>
            
@@ -34,7 +34,8 @@
             <!--input--><input class="form-control" formControlName="passwordConfirmation" placeholder="Password Confirmation *" [type]="fieldTextType2 ? 'text' : 'password'">    
             <!--lock-icon--><fa-icon [icon]="faLock" class="prepend-icon icon"></fa-icon>
             <!--eye-icon--><fa-icon [icon]="faPasswordIcon2" class="append-icon icon" (click)="toggleFieldTextType2()"></fa-icon>
-            <!--error-message--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['passwordConfirmation'].invalid && (registerForm.controls['passwordConfirmation'].dirty || registerForm.controls['passwordConfirmation'].touched)">Please enter your password confirmation.</p>
+            <!--error-required--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['passwordConfirmation'].invalid && (registerForm.controls['passwordConfirmation'].dirty || registerForm.controls['passwordConfirmation'].touched)">Please enter your password confirmation.</p>
+            <!-- error-passwords match<p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls.passwordConfirmation.errors && !registerForm.controls['passwordConfirmation'].invalid && !registerForm.controls['password'].invalid && (registerForm.controls['passwordConfirmation'].dirty || registerForm.controls['passwordConfirmation'].touched)">Passwords do not match.</p> -->
         </div>
 
         <!-- Submit Button -->

@@ -1,29 +1,3 @@
-nav {
-    width: 100%;
-}
-
-.menu {
-    padding: 20px;
-    background-color: rgb(5, 108, 149);
-}
-
-.menu li {
-    display: inline;
-}
-
-.menu-item {
-    font-size: 1.7em;
-    font-weight: 700;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-    padding: 20px;
-    text-decoration: none;
-}
-
-.menu-item-hover {
-    background-color: rgb(74, 146, 175);
-}
-
-.active {
-    background-color: rgb(74, 146, 175);
+.nav-link {
+    font-size: 1.2em;
 }

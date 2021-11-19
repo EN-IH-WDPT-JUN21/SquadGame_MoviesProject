@@ -25,5 +25,10 @@
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary">SUBMIT</button>
 
+        <!-- ********************************************************************************* -->
+        <!-- Change [ngClass]="{'show' : true } "true" to the condition && delete this comment -->
+        <!-- ********************************************************************************* -->
+        <p class="alert-warning fade alert-danger error-msg" style="margin-top:10px;" [ngClass]="{'show' : true }">Either the password is incorrect or the user does not exist.</p>
+
     </form>
 </div>

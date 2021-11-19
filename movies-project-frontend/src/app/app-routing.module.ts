@@ -23,7 +23,7 @@ const routes: Routes = [
     component: PlaylistsComponent
   },
   {
-    path: 'myprofile',
+    path: 'my-profile',
     component: MyProfileComponent
   },
   {

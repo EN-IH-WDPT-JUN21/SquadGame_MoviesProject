@@ -1,4 +1,3 @@
-import { PlaylistRequestId } from './../models/playlist-request.model';
 import { PlaylistItem } from './../models/playlist-item.model';
 import { PlaylistService } from './../playlist.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,7 +20,9 @@ export class PlaylistsComponent implements OnInit {
   userId:number = 3;
   isClicked:boolean;
   isEdited:boolean;
+  itemIsClicked:boolean;
   index!:number;
+  itemIndex!:number;
 
   constructor(private playlistService:PlaylistService, private playlistItemService:PlaylistItemService) {
     this.playlists=[];
@@ -29,6 +30,7 @@ export class PlaylistsComponent implements OnInit {
     this.title = "";
     this.isClicked = false;
     this.isEdited = false;
+    this.itemIsClicked = false;
     this.images.push("../../assets/playlist-icon1.jpg");
     this.images.push("../../assets/playlist-icon2.jpg");
     this.images.push("../../assets/playlist-icon3.jpg");
@@ -44,37 +46,47 @@ export class PlaylistsComponent implements OnInit {
     this.refreshPlaylists();
   }
 
-  randomImage():string{
-    let index = 0;
-    index = Math.floor(Math.random() * this.images.length);
-    return this.images[index];
+  addImage(index:number):string{
+    if(index > this.images.length){
+      index = Math.floor(Math.random() * this.images.length);
+    } 
+    return this.images[index]; 
   }
 
-  refreshPlaylists(){
+  refreshPlaylists():void{
     this.playlistService.getAllPlaylists().subscribe(data =>{
       this.playlists = data;
     });
   }
+    
+  refreshPlaylistsItem(index:number):void{
+    this.playlistItemService.getPlaylistItemsByPlaylistTitleAndUserId(this.playlists[index].title, this.userId).subscribe(data =>{
+    this.playlistItems = data;
+    });
+  }
 
   createPlaylist():void{
-   this.playlist =new PlaylistRequest(this.userId, this.title, false);
+   this.playlist = new PlaylistRequest(this.userId, this.title, false)
    console.log(this.playlist);
    this.playlistService.createPlaylist(this.playlist)
     .subscribe(data => {
      console.log(data)
      this.refreshPlaylists();
-    })
-  }
-
-  showDetails(index:number){
-    this.isClicked = true;
-    this.playlistItemService.getPlaylistItemsByPlaylistTitleAndUserId(this.playlists[index].title, this.userId).subscribe(data =>{
-      this.playlistItems = data;
     });
-
   }
 
-  editPlaylistTitle(){
+  showDetails(index:number):void{
+    this.isClicked = true;
+    this.index = index;
+    this.refreshPlaylistsItem(index);
+  }
+
+  activeEditInput(index:number):void{
+    this.index = index;
+    this.isEdited = !this.isEdited;
+  }
+
+  editPlaylistTitle():void{
     this.playlistService.changeTitle(this.title, this.playlists[this.index].playlistId).subscribe(data =>{
       this.refreshPlaylists();
     });
@@ -83,16 +95,28 @@ export class PlaylistsComponent implements OnInit {
   }
 
   deletePlaylist(index:number):void{
+    this.playlistItemService.deleteAllPlaylistItem(this.playlists[index].title, this.userId).subscribe(data => {
+      console.log(data)
+      this.refreshPlaylistsItem(index);
+     });
     this.playlistService.deletePlaylist(this.playlists[index].playlistId)
-    .subscribe(data => {
-     console.log(data)
-     this.refreshPlaylists();
+     .subscribe(data => {
+      this.refreshPlaylists();
     })
   }
 
-  activeEditInput(index:number){
-    this.index = index;
-    this.isEdited = !this.isEdited;
+  activeDeleteItemButton(index:number):void{
+    this.itemIndex = index;
+    this.itemIsClicked = true;
+  }
+
+
+  deletePlaylistItem():void{
+    this.playlistItemService.deletePlaylistItem(this.playlistItems[this.itemIndex].itemId)
+    .subscribe(data => {
+     console.log(data)
+     this.refreshPlaylistsItem(this.index);
+    })
   }
 }
 

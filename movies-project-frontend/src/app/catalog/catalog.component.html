@@ -1,1 +1,20 @@
-<p>catalog works!</p>
+<!-- Container -->
+<div id="form-container">
+
+    <!-- Form -->
+    <form [formGroup]="registerForm"(ngSubmit)="onSubmit()" >
+
+         <div class="searh-bar-container">
+         <!-- Search Input Group -->
+         <div class="form-group">
+             <!--input--><input type="text" class="form-control" formControlName="search" placeholder="What are you looking for?"> 
+         </div>
+           
+       
+         <!-- Submit Button -->
+            <button type="submit" class="btn" id="search-btn"><fa-icon [icon]="faSearch" class="prepend-icon icon"></fa-icon></button>
+        </div>
+       <!--error-message--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['search'].invalid && (registerForm.controls['search'].dirty || registerForm.controls['search'].touched)">Your search is blank.</p>
+
+    </form>
+</div>

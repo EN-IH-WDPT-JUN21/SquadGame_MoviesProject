@@ -1,3 +1,7 @@
 export class PlaylistRequest{
-    constructor(private playlistId: number, private userId: number, private title: string, private isFull: boolean ){}
+    constructor(private userId: number, private title: string, private isFull: boolean ){}
+}
+
+export class PlaylistRequestId{
+    constructor(private playlistId:number, private userId: number, private title: string, private isFull: boolean ){}
 }

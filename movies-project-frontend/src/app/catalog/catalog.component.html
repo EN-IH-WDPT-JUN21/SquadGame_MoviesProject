@@ -2,19 +2,35 @@
 <div id="form-container">
 
     <!-- Form -->
-    <form [formGroup]="registerForm"(ngSubmit)="onSubmit()" >
+    
 
          <div class="searh-bar-container">
-         <!-- Search Input Group -->
+        
          <div class="form-group">
-             <!--input--><input type="text" class="form-control" formControlName="search" placeholder="What are you looking for?"> 
+             <input type="text" class="form-control" placeholder="What are you looking for?" [(ngModel)]="search" (click) = "onSubmit()"> 
          </div>
-           
-       
-         <!-- Submit Button -->
-            <button type="submit" class="btn" id="search-btn"><fa-icon [icon]="faSearch" class="prepend-icon icon"></fa-icon></button>
+            <button type="submit" class="btn" id="search-btn"><fa-icon [icon]="faSearch" class="prepend-icon icon" (click) = "onSubmit()"></fa-icon></button>
         </div>
-       <!--error-message--><p class="alert-warning alert-danger fade show error-msg" *ngIf="registerForm.controls['search'].invalid && (registerForm.controls['search'].dirty || registerForm.controls['search'].touched)">Your search is blank.</p>
+   
 
-    </form>
+    <div class="card-body">
+        <div class="col">
+          <div class="card-body">
+            <div id="row" class="row">
+              <!--<label *ngIf="movies.length == 0" id="default-info">There is no results for your search</label>-->
+              <div id="col" class="col-4" >
+                <div class="card" id="card-playlist" *ngFor="let movie of movies, index as i">
+                  <img class="card-img" src="{{movie.results[i].results[i].image}}" alt="Movie poster" (click)="activateAddButton(i)">
+                  <div class="card-body">
+                    <h5 class="card-title">{{movie.results[1].results[i].title}}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
 </div>

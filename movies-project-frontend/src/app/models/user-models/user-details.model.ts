@@ -1,6 +1,6 @@
 export class UserDetails{
 
-  id:string;
+  id:number;
   login:string;
   name:string;
   email:string;

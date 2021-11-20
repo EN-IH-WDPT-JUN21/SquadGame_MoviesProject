@@ -16,13 +16,16 @@ export class UsersService {
   private token:string='';
   private registerStatus=0;
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+    this.restoreData()
+   }
 
   async login(loginDetails:LoginDetails){
     try{
       const response = await this.http.post(`${this.baseUrl}/users/login`,loginDetails,{headers:this.composeHeader(), observe:'response'}).toPromise();
       let tmpToken = response.headers.get('pragma');
       this.token = tmpToken? tmpToken : '';
+      this.storeData();
     }catch(e){
       console.log(e)
     }
@@ -59,5 +62,20 @@ export class UsersService {
   }
   getToken(){
     return this.token;
+  }
+  private storeData(){
+    window.localStorage.clear();
+    window.localStorage.setItem('token',this.token);
+  }
+  private restoreData(){
+    let tokenTmp: string | null;
+    tokenTmp = window.localStorage.getItem('token');
+    this.token = tokenTmp ? tokenTmp : '';
+  }
+  logout(){
+    localStorage.clear();
+    this.token='';
+    console.log("localStorage after logut:",localStorage);
+    console.log("JWT after logut:",this.token);
   }
 }

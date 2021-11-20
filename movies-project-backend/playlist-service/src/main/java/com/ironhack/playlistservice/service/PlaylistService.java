@@ -40,19 +40,14 @@ public class PlaylistService {
         return playlistConverter.entityToDto(playlistRepository.findAll());
     }
 
-    public List<PlaylistDto> getPlaylistsByUserId(Long id, String token) {
+    public List<PlaylistDto> getPlaylistsByUserId(String token) {
         token = token.replace("Bearer","");
         Long tokenSubject = Long.parseLong(Jwts.parser()
                 .setSigningKey(environment.getProperty("token.secret"))
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject());
-
-        if (!tokenSubject.equals(id)){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"You don't have access to this resource!");
-        }else{
-            return playlistConverter.entityToDto(playlistRepository.findByUserId(id));
-        }
+        return playlistConverter.entityToDto(playlistRepository.findByUserId(tokenSubject));
     }
 
     public PlaylistDto getPlaylistById(Long id, String token) {

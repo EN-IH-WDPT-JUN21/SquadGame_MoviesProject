@@ -15,6 +15,7 @@ export class ImdbService {
   constructor(private http:HttpClient) { }
 
   getMovieByTitle(title: string) {
+    console.log("getMovieByTitle: title->",title);
     return this.http.get<any>(this.baseUrl + '/API/SearchTitle/' + this.apiKey + '/' + title, {observe: 'response'});
   }
 

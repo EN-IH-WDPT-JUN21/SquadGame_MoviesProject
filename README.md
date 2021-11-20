@@ -57,6 +57,12 @@ GET    | /playlist-item/playlist-title/{playlist-title}/{userId} | to get all pl
 POST   | /playlist-item       | to create new playlist's item | logged user
 DELETE | /playlist-item/{id}      | to delete playlist's item by id | logged user
 DELETE | /playlist-item/{userId}/{playlistTitle} | to delete all playlist's items by user and playlist title | logged user
+GET    | /user-details/{id} | to get user details bu user id | logged user
+POST   | /users/login | to log the user | for all
+POST   | /users | to create new user | for all
+PUT    | /user-details/{id} | to change the user details by id | logged user
+
+
 
 
 

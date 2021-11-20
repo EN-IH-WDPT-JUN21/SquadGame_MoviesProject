@@ -54,11 +54,11 @@ export class PlaylistsComponent implements OnInit {
   }
 
   refreshPlaylists():void{
-    this.playlistService.getAllPlaylists().subscribe(data =>{
+    this.playlistService.getPlaylistByUserId(this.userId).subscribe(data =>{
       this.playlists = data;
     });
   }
-    
+
   refreshPlaylistsItem(index:number):void{
     this.playlistItemService.getPlaylistItemsByPlaylistTitleAndUserId(this.playlists[index].title, this.userId).subscribe(data =>{
     this.playlistItems = data;
@@ -109,7 +109,6 @@ export class PlaylistsComponent implements OnInit {
     this.itemIndex = index;
     this.itemIsClicked = true;
   }
-
 
   deletePlaylistItem():void{
     this.playlistItemService.deletePlaylistItem(this.playlistItems[this.itemIndex].itemId)

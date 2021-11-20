@@ -15,6 +15,7 @@ export class UsersService {
   private readonly baseUrl = 'http://localhost:8000';
   private token:string='';
   private registerStatus=0;
+  private userId:number=-99;
 
   constructor(private http:HttpClient) {
     this.restoreData()
@@ -66,16 +67,26 @@ export class UsersService {
   private storeData(){
     window.localStorage.clear();
     window.localStorage.setItem('token',this.token);
+    window.localStorage.setItem('id',this.userId.toString());
   }
   private restoreData(){
     let tokenTmp: string | null;
+    let userIdTmp: string | null;
     tokenTmp = window.localStorage.getItem('token');
+    userIdTmp = window.localStorage.getItem('id');
     this.token = tokenTmp ? tokenTmp : '';
+    this.userId = userIdTmp ? +userIdTmp : -99;
   }
   logout(){
     localStorage.clear();
     this.token='';
     console.log("localStorage after logut:",localStorage);
     console.log("JWT after logut:",this.token);
+  }
+  setId(id:number){
+    this.userId=id;
+  }
+  getId():number{
+    return this.userId;
   }
 }

@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/playlists")
-@CrossOrigin("http://localhost:4200")
 public class PlaylistController {
 
     @Autowired

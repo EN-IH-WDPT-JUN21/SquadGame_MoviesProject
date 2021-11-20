@@ -1,3 +1,5 @@
+import { UserDetails } from './../models/user-models/user-details.model';
+import { UsersService } from './../users.service';
 import { PlaylistService } from './../playlist.service';
 import { Component, OnInit } from '@angular/core';
 import { PlaylistRequest } from '../models/playlist-request.model';
@@ -24,7 +26,7 @@ export class PlaylistsComponent implements OnInit {
   index!:number;
   itemIndex!:number;
 
-  constructor(private playlistService:PlaylistService, private playlistItemService:PlaylistItemService) {
+  constructor(private playlistService:PlaylistService, private playlistItemService:PlaylistItemService, private usersService:UsersService) {
     this.playlists=[];
     this.playlistItems = [];
     this.title = "";
@@ -44,13 +46,14 @@ export class PlaylistsComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshPlaylists();
+    this.userId=this.usersService.getId();
   }
 
   addImage(index:number):string{
     if(index > this.images.length){
       index = Math.floor(Math.random() * this.images.length);
-    } 
-    return this.images[index]; 
+    }
+    return this.images[index];
   }
 
   refreshPlaylists():void{
@@ -67,6 +70,12 @@ export class PlaylistsComponent implements OnInit {
   }
 
   createPlaylist():void{
+    let userDetails: UserDetails;
+    this.usersService.getUserDetails().subscribe(resp=>{
+      userDetails=new UserDetails(resp)
+      this.userId = userDetails.id;
+      console.log("Playlist component after createPlaylist() requested for userId:",this.userId)
+    });
    this.playlist = new PlaylistRequest(this.userId, this.title, false)
 
    this.playlistService.createPlaylist(this.playlist)

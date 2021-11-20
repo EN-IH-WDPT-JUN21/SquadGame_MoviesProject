@@ -35,9 +35,10 @@ export class MyProfileComponent implements OnInit {
     this.usersService.getUserDetails().subscribe(resp=>{
       userDetails=resp;
       this.registerForm.patchValue({username:userDetails.login});
-      this.registerForm.patchValue({email:userDetails.email})
-      this.registerForm.patchValue({name:userDetails.name})
-      this.registerForm.patchValue({bio:userDetails.bio})
+      this.registerForm.patchValue({email:userDetails.email});
+      this.registerForm.patchValue({name:userDetails.name});
+      this.registerForm.patchValue({bio:userDetails.bio});
+      this.usersService.setId(userDetails.id);
     })
 
   }

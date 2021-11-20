@@ -1,0 +1,106 @@
+/********* GENERAL CONTAINER *********/
+@media screen and (min-width: 800px) {
+    #info-container {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #info-container {
+        width: 80%;
+    }
+}
+
+#info-container {
+    margin: 100px auto;
+    border-radius: 10px;
+  
+}
+
+/********* IMAGE CONTAINER *********/
+@media screen and (min-width: 800px) {
+    .img-container {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .img-container {
+        width: 60%;
+    }
+}
+
+.img-container{
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+/********* EDIT PHOTO BUTTON *********/
+
+#edit-photo-icon{
+    position: absolute;
+    bottom: 0;
+    left: 75%;
+    border-radius: 100%;
+}
+
+#edit-photo-icon:focus{
+    box-shadow: none;
+}
+
+
+/********* FORM *********/
+.form-control {
+    margin: 5px 0 20px 0;
+    height: 50px;
+    padding-left: 40px;
+}
+
+textarea.form-control {
+    padding-top: 12px;
+}
+
+.input-container {
+    position: relative;
+}
+
+label {
+    font-weight: 600;
+}
+
+
+/********* FORM ICONS *********/
+.icon {
+    position: absolute;
+    top: 50%;
+    color:#666;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+} 
+
+.prepend-icon {
+    left: 15px;
+}
+
+#icon-bio {
+    top: 26px;
+}
+
+
+/* ERROR MESSAGES */
+.error-msg {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+
+/* SUBMIT BUTTON */
+form button {
+    width: 100%;
+    height: 50px;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 15px;
+}

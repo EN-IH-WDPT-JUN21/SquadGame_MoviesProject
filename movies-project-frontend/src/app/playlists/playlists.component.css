@@ -1,0 +1,57 @@
+#add{
+   font-size: 100px;
+   color: rgb(0, 0, 0);
+   filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+#default-info {
+   font-size: x-large;
+   color:gray;
+   text-align: center;
+}
+
+.input-group-text{
+   background-color: white;
+   border: none;
+}
+
+.input-group{
+    background-color: white;
+    border: none;
+ }
+
+.form-floating{
+    margin-top: 50px;
+    width: 80%;
+}
+
+.card-img{
+    display: flex;
+    width: 80%;
+    margin-left: 16px;
+    margin-top: 16px;
+    cursor: grab;
+}
+
+#card-playlist{
+border:white;
+}
+
+.card-title{
+    text-align: center;
+    margin-top: 10px;
+    cursor: grab;
+}
+
+#delete, #edit{
+    filter: drop-shadow(3px 5px 2px rgb(0 0 0 / 0.4));
+}
+
+.card-body{
+    text-align: center;
+}
+
+
+

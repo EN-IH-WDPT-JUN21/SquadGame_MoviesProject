@@ -59,7 +59,9 @@ export class LoginComponent implements OnInit {
     await this.usersService.login(loginDetails);
 
     if(this.usersService.hasJWT()) {
-      this.router.navigate(['/my-profile']);
+      this.router.navigate(['/my-profile']).then(
+        ()=>{location.reload();}
+      );
     }else{
       this.authError=true;
     }

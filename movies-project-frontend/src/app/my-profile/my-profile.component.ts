@@ -49,7 +49,9 @@ export class MyProfileComponent implements OnInit {
      '',
      this.registerForm.value.bio
     )
+    console.log('updated model:',updateUser);
     this.usersService.updateUser(updateUser);
+    location.reload();
   }
 
 }

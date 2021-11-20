@@ -1,7 +1,9 @@
+import { UsersService } from './../users.service';
 import { Component, OnInit } from '@angular/core';
 import { faUser, faEnvelope, faUserTag, faFileAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NameValidator } from '../validators/name-validator';
+import { UserDetails } from '../models/user-models/user-details.model';
 
 @Component({
   selector: 'app-my-profile',
@@ -26,9 +28,19 @@ export class MyProfileComponent implements OnInit {
   })
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private usersService:UsersService) { }
 
   ngOnInit(): void {
+    console.log("User has JWT token:",this.usersService.hasJWT());
+    let userDetails:UserDetails;
+    this.usersService.getUserDetails().subscribe(resp=>{
+      userDetails=resp;
+      this.registerForm.patchValue({username:userDetails.login});
+      this.registerForm.patchValue({email:userDetails.email})
+      this.registerForm.patchValue({name:userDetails.name})
+      this.registerForm.patchValue({bio:userDetails.bio})
+    })
+
   }
 
   onSubmit():void{

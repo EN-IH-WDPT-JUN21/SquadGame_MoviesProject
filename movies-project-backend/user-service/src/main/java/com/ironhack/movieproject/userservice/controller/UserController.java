@@ -22,14 +22,14 @@ public class UserController {
         return userService.createUser(userDTO);
     }
 
-    @GetMapping("/user_details/{id}")
+    @GetMapping("/user_details")
     @ResponseStatus(HttpStatus.OK)
-    public UserDetailsDTO getUserDetails(@PathVariable Long id, @RequestHeader (name="Authorization") String token){
-        return userService.getUserDetails(id, token);
+    public UserDetailsDTO getUserDetails(@RequestHeader (name="Authorization") String token){
+        return userService.getUserDetails(token);
     }
-    @PutMapping("/user_details/{id}")
+    @PutMapping("/user_details")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public UserDetailsDTO updateUser(@PathVariable Long id, @RequestHeader (name="Authorization") String token,@RequestBody UpdateUserDTO updateUserDTO){
-        return userService.updateUser(id,token,updateUserDTO);
+    public UserDetailsDTO updateUser(@RequestHeader (name="Authorization") String token,@RequestBody UpdateUserDTO updateUserDTO){
+        return userService.updateUser(token,updateUserDTO);
     }
 }

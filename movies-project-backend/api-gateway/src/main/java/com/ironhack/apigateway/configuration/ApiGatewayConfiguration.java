@@ -58,7 +58,7 @@ public class ApiGatewayConfiguration {
                         .uri("lb://"+USER_SERVICE_NAME))
                 .route(p -> p.path("/users/login")
                         .uri("lb://"+USER_SERVICE_NAME))
-                .route(p -> p.path("/user_details/**")
+                .route(p -> p.path("/user_details")
                         .filters(f -> f.filter(new AuthorizationHeadersFilter(environment).apply(new AuthorizationHeadersFilter.Config())))
                         .uri("lb://"+USER_SERVICE_NAME))
                 .build();

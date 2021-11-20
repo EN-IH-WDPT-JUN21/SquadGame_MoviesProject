@@ -32,7 +32,11 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDetailsDTO createUser(UserDTO userDTO) {
-        UserEntity userEntity = new UserEntity(userDTO.getLogin(),encoder.encode(userDTO.getPassword()),userDTO.getName(), userDTO.getEmail(),userDTO.getImageUrl(),userDTO.getBio());
+        Optional<UserEntity> existingUser = userRepository.findByLogin(userDTO.getLogin());
+        if (existingUser.isPresent()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"User already exists!");
+        }
+        UserEntity userEntity = new UserEntity(userDTO.getLogin(),encoder.encode(userDTO.getPassword()),"New user", userDTO.getEmail(),"","No bio");
         UserEntity savedUserEntity = userRepository.save(userEntity);
         return new UserDetailsDTO(savedUserEntity.getId(), savedUserEntity.getLogin(), savedUserEntity.getName(), savedUserEntity.getEmail(),savedUserEntity.getImageUrl(),savedUserEntity.getBio());
     }
@@ -57,44 +61,46 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public UserDetailsDTO getUserDetails(Long id, String token) {
-        Optional<UserEntity> user = userRepository.findById(id);
+    public UserDetailsDTO getUserDetails(String token) {
+        token = token.replace("Bearer","");
+        Long tokenSubject = Long.parseLong(Jwts.parser()
+                .setSigningKey(environment.getProperty("token.secret"))
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject());
+        Optional<UserEntity> user = userRepository.findById(tokenSubject);
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
         }else{
-
-            if (!userHasAccessToResource(token,id)){
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"You don't have access to this resource!");
+            return new UserDetailsDTO(user.get().getId(),user.get().getLogin(),user.get().getName(),user.get().getEmail(),user.get().getImageUrl(),user.get().getBio());
             }
-            else{
-                return new UserDetailsDTO(user.get().getId(),user.get().getLogin(),user.get().getName(),user.get().getEmail(),user.get().getImageUrl(),user.get().getBio());
-            }
-        }
     }
 
-    public UserDetailsDTO updateUser(Long id, String token, UpdateUserDTO updateUserDTO) {
-        Optional<UserEntity> user = userRepository.findById(id);
+    public UserDetailsDTO updateUser(String token, UpdateUserDTO updateUserDTO) {
+        token = token.replace("Bearer","");
+        Long tokenSubject = Long.parseLong(Jwts.parser()
+                .setSigningKey(environment.getProperty("token.secret"))
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject());
+        Optional<UserEntity> user = userRepository.findById(tokenSubject);
         if (user.isEmpty()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
         }else{
-            if (!userHasAccessToResource(token,id)){
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"You don't have access to this resource!");
-            }else {
-                user.get().setBio(updateUserDTO.getBio());
-                user.get().setName(updateUserDTO.getName());
-                user.get().setImageUrl(updateUserDTO.getImageUrl());
-                user.get().setEmail(updateUserDTO.getEmail());
+            user.get().setBio(updateUserDTO.getBio());
+            user.get().setName(updateUserDTO.getName());
+            user.get().setImageUrl(updateUserDTO.getImageUrl());
+            user.get().setEmail(updateUserDTO.getEmail());
 
-                UserEntity updatedUser = userRepository.save(user.get());
-                return new UserDetailsDTO(
-                        updatedUser.getId(),
-                        updatedUser.getLogin(),
-                        updatedUser.getName(),
-                        updatedUser.getEmail(),
-                        updatedUser.getImageUrl(),
-                        updatedUser.getBio()
-                );
-            }
+            UserEntity updatedUser = userRepository.save(user.get());
+            return new UserDetailsDTO(
+                updatedUser.getId(),
+                updatedUser.getLogin(),
+                updatedUser.getName(),
+                updatedUser.getEmail(),
+                updatedUser.getImageUrl(),
+                updatedUser.getBio()
+            );
         }
     }
 

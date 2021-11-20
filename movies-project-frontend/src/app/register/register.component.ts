@@ -1,3 +1,5 @@
+import { RegisterDetails } from './../models/user-models/register-details.model';
+import { UsersService } from './../users.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,24 +21,24 @@ export class RegisterComponent implements OnInit {
    faEnvelope = faEnvelope;
    fieldTextType: boolean = false;
    fieldTextType2: boolean = false;
- 
+
    registerForm = this.fb.group({
      username: ["", Validators.required],
      email: ["", [Validators.required, Validators.email]],
      password: ["", Validators.required],
      passwordConfirmation: ["", Validators.required]
    }, {validator: PasswordsMustMatch('password', 'passwordConfirmation')});
-  
 
-  
 
-   
+
+
+
 
   //Constructor
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder, private router: Router, private usersService:UsersService) {}
 
   //ngOnInit
-  ngOnInit(): void {   
+  ngOnInit(): void {
   }
 
   // Handles Password show/hide toggle on Password
@@ -70,11 +72,19 @@ toggleFieldTextType2() {
 }
 
   //onSubmit
-  onSubmit():void{
-    
-    //if login is correct, redirects to My Profile
-    if(true) {
-      this.router.navigate(['/my-profile']);
+  async onSubmit(){
+    let registerDetails:RegisterDetails = new RegisterDetails(
+      this.registerForm.value.username,
+      this.registerForm.value.password,
+      this.registerForm.value.email
+    )
+    await this.usersService.register(registerDetails);
+    let status:number=this.usersService.getRegisterStatus();
+    //takes data from fields
+    if(status==202) {
+      this.router.navigate(['/login']);
+    }else{
+      window.alert("Failed to register!");
     }
   }
 

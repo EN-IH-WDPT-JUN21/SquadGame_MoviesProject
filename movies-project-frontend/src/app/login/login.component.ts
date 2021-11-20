@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   faLock = faLock;
   faUser = faUser;
   fieldTextType: boolean = false;
+  authError=false;
 
   registerForm = this.fb.group({
     username: ["", Validators.required],
@@ -47,16 +48,20 @@ export class LoginComponent implements OnInit {
   }
 
   //onSubmit
-  onSubmit():void{
+  async onSubmit(){
 
     //if login is correct, redirects to My Profile
-    if(true) {
-      let loginDetails: LoginDetails = new LoginDetails(
-        this.registerForm.value.username,
-        this.registerForm.value.password
-      )
+
+    let loginDetails: LoginDetails = new LoginDetails(
+      this.registerForm.value.username,
+      this.registerForm.value.password
+    )
+    await this.usersService.login(loginDetails);
+
+    if(this.usersService.hasJWT()) {
       this.router.navigate(['/my-profile']);
-      this.usersService.login(loginDetails)
+    }else{
+      this.authError=true;
     }
   }
 }

@@ -59,6 +59,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .compact();
 
         response.addHeader("token",token);
+        response.setHeader("pragma",token);
         response.addHeader("userId",userDetailsDTO.getId().toString());
     }
 }

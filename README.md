@@ -3,6 +3,7 @@
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Usage](#usage)
+* [Webpage](#webpage)
 
 ## General info
 This project is simple movie and TV show application. 
@@ -13,6 +14,10 @@ Project is created with:
 * Java
 * Spring Boot
 * Angular
+* TypeScript
+* HTML
+* CSS
+* JavaScript
 	
 ## Setup
 To run this project, clone the repo:
@@ -39,6 +44,7 @@ for the front-end install it locally using npm:
 $ npm install
 $ npm serve
 ```
+The front-end start by default at localhost:4200
 
 ## Usage
 The architectural assumption of the project was to divide the functionality between microservices. The application consists of 4 microservices, including gateway and server. To run the project all microservices should be started - we recommend starting with the server. All endpoints are available from the gateway level, which operates on port 8000.
@@ -62,7 +68,18 @@ POST   | /users/login | to log the user | for all
 POST   | /users | to create new user | for all
 PUT    | /user-details/{id} | to change the user details by id | logged user
 
-
-
-
-
+## Webpage
+The homepage available by default at localhost:4200 contain navbar at the top. Links to login, register and search are also at the bottom of the page. From navbar user can choose:
+```
+Home - main page;
+Search movies - to find information about movies and series;
+Playlists - for creating your own playlists. Available for logged users;
+My profile (user icon) - allows update information about user and add bio;
+Register - way for new users to create account;
+Login - to account gives access to playlists and user profile;
+Logout - disconnecing from account.
+```
+To login user need username and password.<br>
+To register: username, email and password is needed.<br>
+User profile page allow to add picture and write bio.<br>
+Each playlist can contain maximum ten movies. Every logged user can create many playlists.

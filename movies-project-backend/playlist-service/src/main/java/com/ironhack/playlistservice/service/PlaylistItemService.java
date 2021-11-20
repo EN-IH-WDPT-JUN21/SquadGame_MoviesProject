@@ -80,7 +80,7 @@ public class PlaylistItemService {
             List<PlaylistItem> playlistItemList = playlistItemRepository.findByPlaylistTitle(playlistItemDto.getPlaylist().getTitle());
             boolean isMovieDuplicated = false;
             for (PlaylistItem playlistItem : playlistItemList) {
-                if (playlistItem.getMovieId() == playlistItemDto.getMovieId()) {
+                if (playlistItem.getId() == playlistItemDto.getId()) {
                     isMovieDuplicated = true;
                     break;
                 }

@@ -1,28 +1,41 @@
 <!-- Container -->
-<div id="form-container">
-
-    <!-- Form -->
-    
-
-         <div class="searh-bar-container">
-        
-         <div class="form-group">
-             <input type="text" class="form-control" placeholder="What are you looking for?" [(ngModel)]="search" (click) = "onSubmit()"> 
-         </div>
-            <button type="submit" class="btn" id="search-btn"><fa-icon [icon]="faSearch" class="prepend-icon icon" (click) = "onSubmit()"></fa-icon></button>
+<div id="container">
+    <div class="searh-bar-container">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="What are you looking for?" [(ngModel)]="search" (keyup.enter)="onSubmit()"> 
         </div>
-   
-
-    <div class="card-body">
+        <button type="submit" class="btn" id="search-btn"><fa-icon [icon]="faSearch" class="prepend-icon icon" (click) = "onSubmit()"></fa-icon></button>
+    </div>
+    <label *ngIf="movies.length == 0 && isTouched==true" id="default-info">There is no results for your search</label>
+    <br>
+    <div class = "row" *ngIf="isClicked==true">
+        <div class="col">
+            <label id="default-info">Add the movie to the playlist</label>
+        </div>
+        <div class="col">
+            <select class="form-select" aria-label=".form-select-lg example" [(ngModel)]="selectedOption">
+                <option selected>-None-</option>     
+                <option *ngFor="let playlist of playlists" [value] = "playlist.playlistId">{{playlist.title}}</option>
+            </select>
+        </div>
+        <div class="col">
+            <button class="btn btn-dark" (click) = "addToThePlaylist()">Add</button>
+        </div>
+    </div>
+    <br>    
+      <div class="card shadow" *ngIf="movies.length != 0 && isTouched==true">
         <div class="col">
           <div class="card-body">
             <div id="row" class="row">
-              <!--<label *ngIf="movies.length == 0" id="default-info">There is no results for your search</label>-->
-              <div id="col" class="col-4" >
-                <div class="card" id="card-playlist" *ngFor="let movie of movies, index as i">
-                  <img class="card-img" src="{{movie.results[i].results[i].image}}" alt="Movie poster" (click)="activateAddButton(i)">
-                  <div class="card-body">
-                    <h5 class="card-title">{{movie.results[1].results[i].title}}</h5>
+              
+              <div id="col" class="col-3" *ngFor="let movie of movies, index as i" >
+                <div class="card" id="card-playlist" >
+                    <div class="img-container">
+                        <img class="card-img" src={{movie.image}} alt="Movie poster" (click)="activateAddButton(i)">
+                    </div>
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{movie.title}}</h5>
                   </div>
                 </div>
               </div>
@@ -30,7 +43,4 @@
           </div>
         </div>
       </div>
-
-
-
 </div>

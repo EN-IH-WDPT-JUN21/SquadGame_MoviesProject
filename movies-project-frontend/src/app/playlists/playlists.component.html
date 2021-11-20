@@ -56,7 +56,7 @@
                 <label *ngIf="playlistItems.length == 0" id="default-info">Your playlist is empty</label>
                 <div id="col" class="col-4" *ngFor="let playlistItem of playlistItems, index as i">
                   <div class="card" id="card-playlist">
-                    <img class="card-img" src="{{playlistItem.imageUrl}}" alt="Movie poster" (click)="activeDeleteItemButton(i)">
+                    <img class="card-img" src="{{playlistItem.image}}" alt="Movie poster" (click)="activeDeleteItemButton(i)">
                     <div class="card-body">
                       <h5 class="card-title">{{playlistItem.title}}</h5>
                     </div>

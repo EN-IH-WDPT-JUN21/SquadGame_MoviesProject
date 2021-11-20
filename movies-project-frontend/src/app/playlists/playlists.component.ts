@@ -1,8 +1,8 @@
-import { PlaylistItem } from './../models/playlist-item.model';
 import { PlaylistService } from './../playlist.service';
 import { Component, OnInit } from '@angular/core';
-import { Playlist } from '../models/playlist.model';
 import { PlaylistRequest } from '../models/playlist-request.model';
+import { Playlist } from '../models/playlist.model';
+import { PlaylistItem } from '../models/playlist-item.model';
 import { PlaylistItemService } from '../playlist-item.service';
 
 @Component({
@@ -54,7 +54,7 @@ export class PlaylistsComponent implements OnInit {
   }
 
   refreshPlaylists():void{
-    this.playlistService.getPlaylistByUserId(this.userId).subscribe(data =>{
+    this.playlistService.getPlaylistByUserId().subscribe(data =>{
       this.playlists = data;
     });
   }
@@ -62,15 +62,15 @@ export class PlaylistsComponent implements OnInit {
   refreshPlaylistsItem(index:number):void{
     this.playlistItemService.getPlaylistItemsByPlaylistTitleAndUserId(this.playlists[index].title, this.userId).subscribe(data =>{
     this.playlistItems = data;
+    console.log(this.playlistItems);
     });
   }
 
   createPlaylist():void{
    this.playlist = new PlaylistRequest(this.userId, this.title, false)
-   console.log(this.playlist);
+
    this.playlistService.createPlaylist(this.playlist)
     .subscribe(data => {
-     console.log(data)
      this.refreshPlaylists();
     });
   }

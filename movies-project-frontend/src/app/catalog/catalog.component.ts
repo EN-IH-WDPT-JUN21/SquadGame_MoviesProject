@@ -1,6 +1,9 @@
-import { MovieResponse } from './../models/movie.model';
+import { PlaylistItemService } from './../playlist-item.service';
+import { PlaylistItemRequest } from './../models/playlist-item-request.model';
+import { Playlist } from './../models/playlist.model';
+import { PlaylistService } from './../playlist.service';
+import { MovieInfo } from './../models/movie.model';
 import { ImdbService } from './../imdb.service';
-import { FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,12 +15,28 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 export class CatalogComponent implements OnInit {
 
   faSearch = faSearch;
-  movies:MovieResponse[];
+  movies:MovieInfo[];
   search:string;
+  addButtonIsActive:boolean;
+  isTouched:boolean;
+  isClicked:boolean;
+  index:number;
+  title:string;
+  playlists:Playlist[];
+  selectedOption:number;
+  playlist!:Playlist;
+  playlistItem!:PlaylistItemRequest;
   
-  constructor( private imdbService:ImdbService) {
+  constructor( private imdbService:ImdbService, private playlistService:PlaylistService, private palylistItemService: PlaylistItemService) {
     this.search="";
     this.movies = [];
+    this.addButtonIsActive = false;
+    this.isTouched = false;
+    this.isClicked = false;
+    this.index = 0;
+    this.title = "";
+    this.playlists=[];
+    this.selectedOption = 0;
   }
 
   ngOnInit(): void {
@@ -25,19 +44,30 @@ export class CatalogComponent implements OnInit {
 
   onSubmit():void{
     this.imdbService.getMovieByTitle(this.search).subscribe(data =>{
-      this.movies.push(data);
-     // const id:string = movieResponse.results[0].results.id;
-      //const title:string = movieResponse.results[0].results.title;
-      //const image:string = movieResponse.results[0].results.image;
-      //const description:string = movieResponse.results[0].results.description;
-      //this.movies.push(data);
-        });
+      this.movies = data.body.results;
+    });
 
-    //console.log(this.movies);
+    this.isTouched = true;
   }
   
   activateAddButton(index:number):void{
-
+    this.isClicked = true;
+    this.index = index;
+    this.playlistService.getPlaylistByUserId().subscribe(data =>{
+      this.playlists = data;
+    }); 
   }
 
+  addToThePlaylist(){
+    console.log(this.selectedOption);
+    this.playlistService.getPlaylistById(this.selectedOption).subscribe(data =>{
+      this.playlist = data;
+      this.playlistItem = new PlaylistItemRequest(this.movies[this.index].id, this.movies[this.index].title, this.movies[this.index].description, this.movies[this.index].image, this.playlist);
+      this.palylistItemService.createPlaylistItem(this.playlistItem).subscribe(data =>{
+      })
+    }); 
+
+    this.isClicked = false;
+    this.index=0;
+  }
 }

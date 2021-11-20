@@ -20,24 +20,24 @@ public class PlaylistItem{
     private Long itemId;
 
     @Column(name = "movie_id")
-    private String movieId;
+    private String id;
     private String title;
     private String description;
-    private String imageUrl;
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "playlist_id", nullable = false)
     private Playlist playlist;
 
     public PlaylistItem(String movieId, String title, String description, String imageUrl) {
-        this.movieId = movieId;
+        this.id = movieId;
         this.title = title;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.image = imageUrl;
     }
 
     public PlaylistItem(String movieId, Playlist playlist) {
-        this.movieId = movieId;
+        this.id = movieId;
         this.playlist = playlist;
     }
 }

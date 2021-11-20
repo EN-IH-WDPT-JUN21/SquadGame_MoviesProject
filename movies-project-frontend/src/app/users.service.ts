@@ -1,3 +1,4 @@
+import { UpdateUser } from './models/user-models/update-user.model';
 import { Observable } from 'rxjs';
 import { RegisterDetails } from './models/user-models/register-details.model';
 import { LoginDetails } from './models/user-models/login-details.model';
@@ -46,11 +47,17 @@ export class UsersService {
     console.log("getUserDetails token value:",this.token)
       return this.http.get(`${this.baseUrl}/user_details`,{headers:this.composeHeader()})
   }
+  updateUser(updateUser:UpdateUser){
+    this.http.put(`${this.baseUrl}/user_details`,updateUser,{headers:this.composeHeader()});
+  }
 
   composeHeader(){
     return {
       'Content-Type':  'application/json',
       'Authorization': 'Bearer '+this.token
     }
+  }
+  getToken(){
+    return this.token;
   }
 }

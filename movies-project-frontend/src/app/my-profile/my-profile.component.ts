@@ -1,9 +1,10 @@
+import { UpdateUser } from './../models/user-models/update-user.model';
+import { UserDetails } from './../models/user-models/user-details.model';
 import { UsersService } from './../users.service';
 import { Component, OnInit } from '@angular/core';
 import { faUser, faEnvelope, faUserTag, faFileAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NameValidator } from '../validators/name-validator';
-import { UserDetails } from '../models/user-models/user-details.model';
 
 @Component({
   selector: 'app-my-profile',
@@ -18,8 +19,6 @@ export class MyProfileComponent implements OnInit {
   faFileAlt = faFileAlt;
   faPencilAlt = faPencilAlt;
 
-  //we can choose between showing the user's info on the placeholder or pre-filled (below this comment)
-  //right now, it's on both sides
   registerForm = this.fb.group({
     username: [{value: "ironh4ck3r", disabled: true}],
     email: ["ironh4ck3r@mail.com", [Validators.required, Validators.email]],
@@ -44,7 +43,13 @@ export class MyProfileComponent implements OnInit {
   }
 
   onSubmit():void{
-
+    let updateUser:UpdateUser = new UpdateUser(
+      this.registerForm.value.username,
+      this.registerForm.value.email,
+     '',
+     this.registerForm.value.bio
+    )
+    this.usersService.updateUser(updateUser);
   }
 
 }

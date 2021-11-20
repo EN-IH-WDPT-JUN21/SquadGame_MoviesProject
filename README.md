@@ -45,11 +45,18 @@ The architectural assumption of the project was to divide the functionality betw
 
 Method | Endpoint             | Description                  | Permission
 ------ | -------------------- | ---------------------------- | ----------------
-GET    | /playlists           | to get all user playlists    | logged user
+GET    | /playlists           | to get all playlists         | logged user
 GET    | /playlist-by-id/{id} | to get playlist by id        | logged user
-GET    | /playlists/user/{id} | to get all users's playlists | logged user
+GET    | /playlists/user/{id} | to get all user's playlists  | logged user
 POST   | /playlists           | to create new playlist       | logged user
-PATCH  | /playlists/{id}      | to update playlist title     | logged user
+PATCH  | /playlists/{id}      | to update playlist's title   | logged user
 DELETE | /playlists/{id}      | to delete playlist by id     | logged user
+GET    | /playlist-item       | to get all playlist's items  | logged user
+GET    | /playlist-item/{id}  | to get playlist's item by id | logged user
+GET    | /playlist-item/playlist-title/{playlist-title}/{userId} | to get all playlist's items by playlist title and user | logged user
+POST   | /playlist-item       | to create new playlist's item | logged user
+DELETE | /playlist-item/{id}      | to delete playlist's item by id | logged user
+DELETE | /playlist-item/{userId}/{playlistTitle} | to delete all playlist's items by user and playlist title | logged user
+
 
 

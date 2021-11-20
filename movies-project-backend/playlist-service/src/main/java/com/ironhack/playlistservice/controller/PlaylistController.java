@@ -23,7 +23,7 @@ public class PlaylistController {
         return playlistService.getAllPlaylists(token);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
     private List<PlaylistDto> getPlaylistsByUserId(@RequestHeader (name="Authorization") String token){return playlistService.getPlaylistsByUserId(token);}
 

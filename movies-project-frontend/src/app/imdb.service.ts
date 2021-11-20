@@ -14,9 +14,8 @@ export class ImdbService {
 
   constructor(private http:HttpClient) { }
 
-  getMovieByTitle(title: string): Observable<any> {
-    console.log(this.baseUrl + '/API/SearchTitle/' + this.apiKey + '/' + title);
-    return this.http.get<any>(this.baseUrl + '/API/SearchTitle/' + this.apiKey + '/' + title);
+  getMovieByTitle(title: string) {
+    return this.http.get<any>(this.baseUrl + '/API/SearchTitle/' + this.apiKey + '/' + title, {observe: 'response'});
   }
 
   getMovieDetails(apiKey: string, movieId: string) :Observable<MovieDetails> {

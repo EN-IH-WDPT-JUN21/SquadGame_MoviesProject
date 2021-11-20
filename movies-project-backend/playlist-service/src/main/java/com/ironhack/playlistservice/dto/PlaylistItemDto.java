@@ -14,10 +14,10 @@ import lombok.Setter;
 public class PlaylistItemDto {
     private Long itemId;
     @NotNull
-    private String movieId;
+    private String id;
     private String title;
     private String description;
-    private String imageUrl;
+    private String image;
     @NotNull
     private Playlist playlist;
 }
